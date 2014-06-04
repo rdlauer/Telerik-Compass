@@ -33,7 +33,12 @@ app.ShowCategory = (function () {
                         $("#singlecatlist").empty();
                         $.each(loc.result, function( index2, value2 ) {
                                  $("#singlecatlist").append("<li><a href='#viewLocation?id=" + value2.Id + "'>" + value2.LocationName + "</a></li>");
-         
+                            // set a map marker pin
+                            console.log(value2.GpsLocation.latitude);
+                            var loc = new Microsoft.Maps.Location(value2.GpsLocation.latitude, value2.GpsLocation.longitude);
+                            var pin = new Microsoft.Maps.Pushpin(loc);
+            				map.entities.push(pin);
+                            map.setView({ center: loc, zoom: 15 });
                           //console.log(value2);
                         });
                         

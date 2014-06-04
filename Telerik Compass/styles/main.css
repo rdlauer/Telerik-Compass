@@ -6,6 +6,11 @@
     text-decoration: none;
 }
 
+#singlecatlist {
+    list-style: none;
+    margin-left: -20px;
+}
+
 hr.style-one {
     border: 0;
     height: 1px;

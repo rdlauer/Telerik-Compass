@@ -1,3 +1,4 @@
+var map;
 var app = (function (win) {
     'use strict';
 
@@ -89,7 +90,7 @@ var app = (function (win) {
                 center: new Microsoft.Maps.Location(42.6954322, 23.3239467),
                 zoom: 10
             };
-            var map = new Microsoft.Maps.Map(document.getElementById("bingmap"), mapOptions);
+            map = new Microsoft.Maps.Map(document.getElementById("bingmap"), mapOptions);
     };
 
     // Handle "deviceready" event
@@ -164,6 +165,21 @@ var app = (function (win) {
         var currentTime = new Date();
         return currentTime.getFullYear();
     }());
+    
+    var formatMyDate = (function(dateString) {
+                    var months = [
+                'Jan', 'Feb', 'Mar',
+                'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep',
+                'Oct', 'Nov', 'Dec'
+            ];
+            var date = new Date(dateString);
+            var year = date.getFullYear();
+            var month = months[ date.getMonth() ];
+            var day = date.getDate();
+
+            return month + ' ' + day + ', ' + year;
+    }());
 
     return {
         showAlert: showAlert,
@@ -173,7 +189,8 @@ var app = (function (win) {
         mobileApp: mobileApp,
         helper: AppHelper,
         everlive: el,
-        getYear: getYear
+        getYear: getYear,
+        formatMyDate: formatMyDate 
     };
 
 }(window));

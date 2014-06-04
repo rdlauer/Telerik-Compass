@@ -13,7 +13,9 @@ app.Category = (function () {
                 $.each(data.result, function( index, value ) {
                     $("#category-list").append("<li><a data-role='button' class='btn btn-login' href='#viewCategory?id=" + value.Id + "'>" + value.CategoryName + "</a></li>");
                     
-                  //console.log(value);
+
+                    
+                  //console.log(value.CategoryName);
                 });
                 
             },
