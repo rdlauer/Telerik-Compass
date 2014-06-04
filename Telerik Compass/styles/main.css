@@ -11,6 +11,10 @@
     margin-left: -20px;
 }
 
+.smtext {
+	font-size: smaller;
+}
+
 hr.style-one {
     border: 0;
     height: 1px;

@@ -32,9 +32,11 @@ app.ShowCategory = (function () {
                         
                         $("#singlecatlist").empty();
                         $.each(loc.result, function( index2, value2 ) {
-                                 $("#singlecatlist").append("<li><a href='#viewLocation?id=" + value2.Id + "'>" + value2.LocationName + "</a></li>");
+                            var dist = distance(value2.GpsLocation.longitude, value2.GpsLocation.latitude, 23.3239467, 42.6954322);
+                            console.log(dist);
+                            $("#singlecatlist").append("<li><a style='text-decoration:none' href='#viewLocation?id=" + value2.Id + "'><b>" + value2.LocationName + "</b> &nbsp;(" + dist.toFixed(1) + " km away)</a></li>");
                             // set a map marker pin
-                            console.log(value2.GpsLocation.latitude);
+                            //console.log(value2.GpsLocation.latitude);
                             var loc = new Microsoft.Maps.Location(value2.GpsLocation.latitude, value2.GpsLocation.longitude);
                             var pin = new Microsoft.Maps.Pushpin(loc);
             				map.entities.push(pin);

@@ -1,4 +1,20 @@
 var map;
+
+    var formatMyDate = function(dateString) {
+                    var months = [
+                'Jan', 'Feb', 'Mar',
+                'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep',
+                'Oct', 'Nov', 'Dec'
+            ];
+            var date = new Date(dateString);
+            var year = date.getFullYear();
+            var month = months[ date.getMonth() ];
+            var day = date.getDate();
+
+            return month + ' ' + day + ', ' + year;
+    };
+
 var app = (function (win) {
     'use strict';
 
@@ -166,20 +182,6 @@ var app = (function (win) {
         return currentTime.getFullYear();
     }());
     
-    var formatMyDate = (function(dateString) {
-                    var months = [
-                'Jan', 'Feb', 'Mar',
-                'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep',
-                'Oct', 'Nov', 'Dec'
-            ];
-            var date = new Date(dateString);
-            var year = date.getFullYear();
-            var month = months[ date.getMonth() ];
-            var day = date.getDate();
-
-            return month + ' ' + day + ', ' + year;
-    }());
 
     return {
         showAlert: showAlert,
@@ -189,8 +191,68 @@ var app = (function (win) {
         mobileApp: mobileApp,
         helper: AppHelper,
         everlive: el,
-        getYear: getYear,
-        formatMyDate: formatMyDate 
+        getYear: getYear
     };
 
 }(window));
+
+(function(g) {
+
+  var productId = "e166e0be17384643b9a833f3ab6c6142"; // App unique product key
+
+  // Make analytics available via the window.analytics variable
+  // Start analytics by calling window.analytics.Start()
+  var analytics = g.analytics = g.analytics || {};
+  analytics.Start = function()
+  {
+    // Handy shortcuts to the analytics api
+    var factory = window.plugins.EqatecAnalytics.Factory;
+    var monitor = window.plugins.EqatecAnalytics.Monitor;
+    // Create the monitor instance using the unique product key for Telerik Compass Analytics
+    var settings = factory.CreateSettings(productId);
+    settings.LoggingInterface = factory.CreateTraceLogger();
+    factory.CreateMonitorWithSettings(settings,
+      function() {
+        console.log("Monitor created");
+        // Start the monitor inside the success-callback
+        monitor.Start(function() {
+          console.log("Monitor started");
+        });
+      },
+      function(msg) {
+        console.log("Error creating monitor: " + msg);
+      });
+  }
+  analytics.Stop = function()
+  {
+    var monitor = window.plugins.EqatecAnalytics.Monitor;
+    monitor.Stop();
+  }
+  analytics.Monitor = function()
+  {
+    return window.plugins.EqatecAnalytics.Monitor;
+  }    
+})(window);
+
+function distance(lon1, lat1, lon2, lat2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = (lat2-lat1).toRad();  // Javascript functions in radians
+  var dLon = (lon2-lon1).toRad(); 
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2); 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+/** Converts numeric degrees to radians */
+if (typeof(Number.prototype.toRad) === "undefined") {
+  Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+}
+
+
+
+  //console.log(distance(41, -29, 42.37, 71.03)); 

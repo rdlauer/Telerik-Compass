@@ -42,7 +42,7 @@ app.ShowLocation = (function () {
                         
                         $("#allreviews").empty();
                         $.each(rev.result, function( index2, value2 ) {
-                            $("#allreviews").append("<li>" + value2.ReviewRating + " out of 5: " + app.formatMyDate(value2.CreatedAt) + value2.ReviewText + "</li>");
+                            $("#allreviews").append("<li style='margin-left:-15px'><b>" + formatMyDate(value2.CreatedAt) + "</b><br />" + value2.ReviewRating + " stars out of 5<br /><span class='smtext'>" + value2.ReviewText + "</span></li>");
                             reviewTotal = reviewTotal + parseFloat(value2.ReviewRating);
                             
                           //console.log(value2);
