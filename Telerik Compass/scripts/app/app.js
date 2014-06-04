@@ -4,7 +4,7 @@ var app = (function (win) {
     // Global error handling
     var showAlert = function(message, title, callback) {
 
-        navigator.notification.alert(message, callback || function () {
+        alert(message, callback || function () {
         }, title, 'OK');
     };
 
@@ -81,6 +81,15 @@ var app = (function (win) {
         if (analytics.isAnalytics()) {
             analytics.Start();
         }
+        
+                    // init the map
+            var mapOptions = {
+                credentials: "ApS85UkPXVwesMUci-sChJajIwz5JNxebj6KsVzaN4IwNqhq8yr4ylAwlQ-zpoH7",
+                mapTypeId: Microsoft.Maps.MapTypeId.road,
+                center: new Microsoft.Maps.Location(42.6954322, 23.3239467),
+                zoom: 10
+            };
+            var map = new Microsoft.Maps.Map(document.getElementById("bingmap"), mapOptions);
     };
 
     // Handle "deviceready" event
